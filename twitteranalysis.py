@@ -229,5 +229,9 @@ st.caption(gpt3_accuracy)
 st.write('SA Accuracy: ')
 st.caption(sa_accuracy)
 
-st.write("This last line is placeholder text for the conclusion.")
+st.write("""Observations:
 
+1)Validation of output is not possible unless the Generative AI performs at or above the level of the associated ML Model. In this situation, Generative AI does perform at a higher level than the ML model.""")
+
+st.write("2)If the Generative AI is performing better than the ML model, it would theoretically be possible to reverse the relationship from the Case Study: Use ML to validate Generative AI's Output.")
+st.write("3)Neither model used in this case study was trained extensively due to time and cost constraints. Both models still have room for improvement.")
