@@ -52,15 +52,6 @@ st.write(gpt_dataset)
 sentiment_dataset['tweets'] = sentiment_dataset['tweets'].str.replace('[{}]'.format(string.punctuation), '')
 gpt_dataset['tweets'] = gpt_dataset['tweets'].str.replace('[{}]'.format(string.punctuation), '')
 
-keyinput = 0
-while (keyinput == 0):
-    #Get API Key from user
-    st.write("In order to continue the demonstration, please input a valid OpenAI API Key. An Error Message will appear later in the code until a valid key is applied:")
-    key = st.text_input("API Key", "[Insert API Key Here]")
-    keyinput = 1
-st.write("The remaining code may take a few minutes to load.")
-openai.api_key = key
-
 # Function to generate GPT-3 response
 def generate_gpt3_response(tweets):
     prompt = f"Tweet: {tweets}\n"
