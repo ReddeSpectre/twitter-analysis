@@ -52,7 +52,6 @@ st.write(gpt_dataset)
 # Remove punctuation from datasets
 sentiment_dataset['tweets'] = sentiment_dataset['tweets'].str.replace('[{}]'.format(string.punctuation), '')
 gpt_dataset['tweets'] = gpt_dataset['tweets'].str.replace('[{}]'.format(string.punctuation), '')
-a_b_dataset['tweets'] = a_b_dataset['tweets'].str.replace('[{}]'.format(string.punctuation), '')
 
 keyinput = 0
 while (keyinput == 0):
@@ -88,11 +87,6 @@ test_x, test_y = test['tweets'], test['labels']
 gpt_train,gpt_test = train_test_split(gpt_dataset, test_size =0.5,random_state=42)
 gpt_test_x,gpt_test_y = gpt_test['tweets'], gpt_test['labels']
 
-#Setup the A/B Testing Split
-a_test,b_test = train_test_split(a_b_dataset, test_size =0.5,random_state=42)
-a_test_x,a_test_y = a_test['tweets'], a_test['labels']
-b_test_x,b_test_y = b_test['tweets'], b_test['labels']
-
 #Implement Stop Words, vectorize data
 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -103,8 +97,6 @@ train_x_vector = tfidf.fit_transform(train_x)
 # also fit the test_x_vector
 test_x_vector = tfidf.transform(test_x)
 gpt_test_x_vector = tfidf.transform(gpt_test_x)
-a_test_x_vector = tfidf.transform(a_test_x)
-b_test_x_vector = tfidf.transform(b_test_x)
 
 #Fit the Data to an SVC Model
 
