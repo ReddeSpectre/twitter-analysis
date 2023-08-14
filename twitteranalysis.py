@@ -124,7 +124,6 @@ st.write("Testing Accuracy:")
 st.caption(test_acc)
 
 st.bar_chart(data = [train_accuracy, test_accuracy], x = None, y = None, width = 0, height = 0, use_container_width = True)
-st.caption(svc.score(test_x_vector, test_y))
 
 st.write("SVC Score:")
 st.caption(svc.score(test_x_vector, test_y))
@@ -156,6 +155,9 @@ st.caption(conf_mat)
 st.write("For practical use, this model does not meet acceptable standards, but for the sake of the case, basic training is acceptable. The same standard of training was done for the GPT-3 Model we will use in the direct comparison: a Custom trained Curie GPT-3 Model.")
 
 st.write("The next step of our case study requires us to, with the help of the Vader Sentiment Lexicon, run the sentiment analysis through our custom GPT-3 Model and compare the results to our previously trained SVC model")
+
+#Evaluate the model on the testing data
+gpt_test_predictions = svc.predict(gpt_test_x_vector)
 
 nltk.download('vader_lexicon')
 from nltk.sentiment import SentimentIntensityAnalyzer
