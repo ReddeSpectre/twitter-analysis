@@ -124,6 +124,7 @@ st.write("Testing Accuracy:")
 st.caption(test_acc)
 
 st.bar_chart(data = [train_accuracy, test_accuracy], x = None, y = None, width = 0, height = 0, use_container_width = True)
+st.caption ("Training score on the left, testing score on the right.")
 
 st.write("SVC Score:")
 st.caption(svc.score(test_x_vector, test_y))
@@ -184,31 +185,31 @@ for _ in range(4):
                 error_counter += 1
 
 
-# Evaluate GPT-3 responses
-gpt3_predictions = []
-for response in gpt3_responses:
-    # Perform sentiment analysis using VADER
-    sentiment = sia.polarity_scores(response)
-    if sentiment['compound'] >= 0.05:
-        gpt3_predictions.append('good')
-    elif sentiment['compound'] <= -0.05:
-        gpt3_predictions.append('bad')
-    else:
-        gpt3_predictions.append('neutral')
+    # Evaluate GPT-3 responses
+    gpt3_predictions = []
+    for response in gpt3_responses:
+        # Perform sentiment analysis using VADER
+        sentiment = sia.polarity_scores(response)
+        if sentiment['compound'] >= 0.05:
+            gpt3_predictions.append('good')
+        elif sentiment['compound'] <= -0.05:
+            gpt3_predictions.append('bad')
+        else:
+            gpt3_predictions.append('neutral')
 
-# Ensure the sizes of gpt_test_predictions and test_y match
-for _ in range(4):
-    num_samples = min(len(gpt_test_predictions), len(test_y))
-    gpt_test_predictions = gpt_test_predictions[:num_samples]
-    test_y = test_y[:num_samples]
+    # Ensure the sizes of gpt_test_predictions and test_y match
+    for _ in range(4):
+        num_samples = min(len(gpt_test_predictions), len(test_y))
+        gpt_test_predictions = gpt_test_predictions[:num_samples]
+        test_y = test_y[:num_samples]
 
-# Compare results between Sentiment Analysis Model and GPT-3
-comparison_results = []
-for i in range(len(test_y)):
-    sa_prediction = gpt_test_predictions[i]
-    gpt3_prediction = gpt3_predictions[i]
-    actual_label = test_y.iloc[i]
-    comparison_results.append((gpt3_prediction, sa_prediction, actual_label))
+    # Compare results between Sentiment Analysis Model and GPT-3
+    comparison_results = []
+    for i in range(len(test_y)):
+        sa_prediction = gpt_test_predictions[i]
+        gpt3_prediction = gpt3_predictions[i]
+        actual_label = test_y.iloc[i]
+        comparison_results.append((gpt3_prediction, sa_prediction, actual_label))
 
 # Convert comparison_results to a DataFrame
 df = pd.DataFrame(comparison_results, columns=['gpt3_prediction', 'sa_prediction', 'actual_label'])
@@ -218,7 +219,7 @@ gpt3_accuracy = (df['gpt3_prediction'] == df['actual_label']).mean()
 sa_accuracy = (df['sa_prediction'] == df['actual_label']).mean()
 
 st.bar_chart(data = [gpt3_accuracy, sa_accuracy], x = None, y = None, width = 0, height = 0, use_container_width = True)
-st.caption(svc.score(test_x_vector, test_y))
+st.caption ("GPT-3 accuracy on the left, Sentiment Analysis score on the right.")
 
 st.write("Our final totals for accuracy are as follows:") 
 
