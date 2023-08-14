@@ -38,7 +38,6 @@ gpt_dataset = gpt_dataset.dropna()
 
 # Set up the Sentiment Dataset
 sentiment_dataset = review_bal[~review_bal.index.isin(gpt_dataset.index)]
-sentiment_dataset = sentiment_dataset[~sentiment_dataset.index.isin(a_b_dataset.index)]
 sentiment_dataset = sentiment_dataset.dropna()
 
 st.write("The two datasets we will be using in this case study(for the inital training and for the later comparison test) are as follows:")
